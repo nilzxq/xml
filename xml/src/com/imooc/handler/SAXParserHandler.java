@@ -31,8 +31,10 @@ public class SAXParserHandler extends DefaultHandler {
 			for(int i=0;i<num;i++){
 				System.out.println("book元素的第"+(i+1)+"个属性名是："+attributes.getQName(i)+"---属性值是："+attributes.getValue(i));
 			}
+		}else if(!qName.equals("book")&&!qName.equals("bookstore")){
+		System.out.println("节点名是："+qName);
 		}
-	}
+}
 
 	/*
 	 * 用来遍历xml文件的结束标签
