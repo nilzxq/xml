@@ -8,6 +8,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
 
+import com.imooc.entity.Book;
 import com.imooc.handler.SAXParserHandler;
 
 /**
@@ -27,7 +28,18 @@ public class SAXTest {
 //        	用父类的startElement方法遍历开始标签，用endElement方法遍历结束标签，
 //        	startDocument方法标志解析开始，endDocument方法标志解析结束
 				SAXParserHandler handler=new SAXParserHandler();
+//	        	4：用SAXParser对象的parse方法接收XML文件选择传入String uri 和 Handler对象的parse方法
 				parser.parse("books.xml", handler);
+				System.out.println("~!　～！　～！共有"+handler.getBookList().size()+"本书");
+				for (Book book:handler.getBookList()) {
+					System.out.println(book.getId());
+					System.out.println(book.getName());
+					System.out.println(book.getAuthor());
+					System.out.println(book.getYear());
+					System.out.println(book.getPrice());
+					System.out.println(book.getLanguage());
+					System.out.println("---finish---");
+				}
 			} catch (ParserConfigurationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -39,6 +51,6 @@ public class SAXTest {
 				e.printStackTrace();
 			}
 
-//        	4：用SAXParser对象的parse方法接收XML文件选择传入String uri 和 Handler对象的parse方法
+
 		}
 }
