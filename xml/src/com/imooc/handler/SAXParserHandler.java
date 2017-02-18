@@ -16,8 +16,19 @@ public class SAXParserHandler extends DefaultHandler {
 	@Override
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
-		// TODO Auto-generated method stub
+      //调用DefaultHanlder类的startElement方法
 		super.startElement(uri, localName, qName, attributes);
+		//开始解析book元素的属性
+		if(qName.equals("book")){
+//			//已知book元素下的属性名称，根据属性名称或取属性值
+//			String value=attributes.getValue("id");
+//			System.out.println("book的属性值是："+value);
+			//不知道book元素下属性的名称以及个数，如何获取属性名以及属性值
+			int num=attributes.getLength();
+			for(int i=0;i<num;i++){
+				System.out.println("book元素的第"+(i+1)+"个属性名是："+attributes.getQName(i)+"---属性值是："+attributes.getValue(i));
+			}
+		}
 	}
 
 	/*
