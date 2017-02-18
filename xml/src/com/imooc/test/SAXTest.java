@@ -1,10 +1,14 @@
 package com.imooc.test;
 
+import java.io.IOException;
+
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
+
+import com.imooc.handler.SAXParserHandler;
 
 /**
  * @author nilzxq
@@ -22,11 +26,15 @@ public class SAXTest {
 //        	3：创建一个类继承DefaultHandler 并重写其中的一些方法进行业务处理，创建该类对象handler
 //        	用父类的startElement方法遍历开始标签，用endElement方法遍历结束标签，
 //        	startDocument方法标志解析开始，endDocument方法标志解析结束
-				
+				SAXParserHandler handler=new SAXParserHandler();
+				parser.parse("books.xml", handler);
 			} catch (ParserConfigurationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (SAXException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
