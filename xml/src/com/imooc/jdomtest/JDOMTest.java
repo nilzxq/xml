@@ -3,6 +3,7 @@ package com.imooc.jdomtest;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 
 import org.jdom2.Attribute;
@@ -28,8 +29,9 @@ public class JDOMTest {
 		// 2.创建输入流，将xml文件加载到输入流中（抛出FileNotFoundException）
 		try {
 			FileInputStream in = new FileInputStream("books.xml");
+			InputStreamReader isr=new InputStreamReader(in,"UTF-8");
 			// 3.通过SAXBuilder的Build方法将输入流加载到saxb中获取dom对象
-			Document document = saxBuilder.build(in);
+			Document document = saxBuilder.build(isr);
 			// 4.通过document对象获取xml文件的根结点
 			Element rootElement = document.getRootElement();
 			// 5.获取根结点下的子节点的List集合
