@@ -63,6 +63,8 @@ public class ParseTest {
 						else if (name.equals("author")) {
 							bookEntity.setAuthor(value);
 						}
+						
+						
 						else if (name.equals("year")) {
 							bookEntity.setYear(value);
 						}
