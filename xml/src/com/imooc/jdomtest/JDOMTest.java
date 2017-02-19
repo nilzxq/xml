@@ -4,7 +4,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.text.AsyncBoxView.ChildLocator;
 
 import org.jdom2.Attribute;
 import org.jdom2.Document;
@@ -12,12 +15,15 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
+import com.imooc.entity.Book;
+
 /**
  * @author nilzxq
  * @date：2017年2月19日 下午4:50:42
  * @version 1.0
  */
 public class JDOMTest {
+	private static ArrayList<Book> booksList=new ArrayList<Book>();
 	/**
 	 * @param args
 	 */
@@ -38,6 +44,7 @@ public class JDOMTest {
 			List<Element> bookList = rootElement.getChildren();
 			// 继续遍历
 			for (Element book : bookList) {
+				Book bookEntity=new Book();
 				System.out.println("====开始解析第" + (bookList.indexOf(book) + 1)
 						+ "本书");
 				// 解析book的属性集合
@@ -52,15 +59,36 @@ public class JDOMTest {
 					String attrValue = attr.getValue();
 					System.out.println("属性名：" + attrName + "------属性值："
 							+ attrValue);
+					if(attrName.equals("id"))
+						bookEntity.setId(attrValue);
 				}
 				// 对book节点的子节点的节点名以及节点值的遍历
 				List<Element> bookChilds = book.getChildren();
 				for (Element child : bookChilds) {
-					System.out.println("节点名:" + child.getName() + "---节点值："
-							+ child.getValue());
+					String childName = child.getName();
+					String childValue=child.getValue();
+					System.out.println("节点名:" + childName + "---节点值："
+							+ childValue);
+					if(childName.equals("name"))
+						bookEntity.setName(childValue);
+					else if(childName.equals("author"))
+						bookEntity.setAuthor(childValue);
+					else if(childName.equals("year"))
+						bookEntity.setYear(childValue);
+					else if(childName.equals("price"))
+						bookEntity.setPrice(childValue);
+					else if(childName.equals("language"))
+						bookEntity.setLanguage(childValue);
 				}
+					
 				System.out.println("====结束解析第" + (bookList.indexOf(book) + 1)
 						+ "本书");
+				booksList.add(bookEntity);
+				bookEntity=null;
+				//测试，也可以用循环看全面
+				System.out.println(booksList.size());
+				System.out.println(booksList.get(0).getId());
+				System.out.println(booksList.get(0).getName());
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
