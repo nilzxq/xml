@@ -1,11 +1,19 @@
 package com.imooc.dmtest.test;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -118,12 +126,34 @@ public class DOMTest {
 		bookstore.appendChild(book);
 		//将bookstore节点（已经包含了book）添加到dom树中
 		document.appendChild(bookstore);
+		
+//		将DOM树转换成XML文件
+//		1，创建TransformerFactory对象，Factory为工厂类，不能直接new对象，通过newInstance获取对象
+		TransformerFactory tff =TransformerFactory.newInstance();
+        try {
+//		2,通过tff获取Transfomer对象
+			Transformer  tf=tff.newTransformer();
+//		3，指定换行格式
+			tf.setOutputProperty(OutputKeys.INDENT, "yes");
+//		4,用DOM树生成XML文件,将DOM树以及输出流作为参数传入
+			tf.transform(new DOMSource(document),new StreamResult(new File("books1.xml")));
+		} catch (TransformerConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (TransformerException e) {
+        	// TODO Auto-generated catch block
+        	e.printStackTrace();
+        }
 	}
 	/**
 	 * 主方法，程序的入口
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
+     //创建DOMTest对象
+		DOMTest test=new DOMTest();
+		//调用解析方法，解析xml文件
+		//test.xmlParser();
+		test.createXML();
 	}
 }
