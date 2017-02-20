@@ -51,7 +51,6 @@ public class DOMTest {
 			
 			// 3.调用parse方法加载books.xml文件到当前项目下，返回值为Document对象
 			Document document = getDocumentBuilder().parse("books.xml");
-			;
 			// 获取所有book节点的集合
 			NodeList bookList = document.getElementsByTagName("book");
 			// 通过NodeList的getlength（）方法获取bookList长度
@@ -118,12 +117,18 @@ public class DOMTest {
 	public void createXML(){
 		DocumentBuilder db =getDocumentBuilder();
 		Document document=db.newDocument();
+		document.setXmlStandalone(true);
 		Element bookstore = document.createElement("bookstore");
 		//向bookstore根节点中添加子节点book
 		Element book=document.createElement("book");
+		Element name=document.createElement("name");
 		book.setAttribute("id", "1");
+//		name.setNodeValue("小王子");
+		name.setTextContent("小王子");
+		book.appendChild(name);
 		//将book节点添加到bookstore根节点中
 		bookstore.appendChild(book);
+		
 		//将bookstore节点（已经包含了book）添加到dom树中
 		document.appendChild(bookstore);
 		
