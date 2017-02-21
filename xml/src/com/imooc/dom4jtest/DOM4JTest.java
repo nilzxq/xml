@@ -95,7 +95,7 @@ public class DOM4JTest {
 		//生成子节点及节点内容
 		Element channel=rss.addElement("channel");
 	    Element title = channel.addElement("title");
-		channel.setText("国内最新新闻");
+		title.setText("<![CDATA[上海移动互联网产业促进中心正式揭牌]]>");
 		//设置生成xml的格式
 		OutputFormat format=OutputFormat.createPrettyPrint();
 		//默认为UTF-8
@@ -104,6 +104,8 @@ public class DOM4JTest {
 		File file=new File("rssnews.xml");
 		 try {
          XMLWriter writer=new XMLWriter(new FileOutputStream(file),format);
+         //设置是否转义，默认值是true，代表转义
+         writer.setEscapeText(false);
 //		5,将程序所写的XML文档内容与输出流联系起来
 			writer.write(document);
 //		6,关闭资源
