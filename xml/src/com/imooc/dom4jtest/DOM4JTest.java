@@ -12,6 +12,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
@@ -91,10 +92,18 @@ public class DOM4JTest {
 		Element rss = document.addElement("rss");
 //		3,向rss根节点中添加version属性
 		rss.addAttribute("version","2.0");
+		//生成子节点及节点内容
+		Element channel=rss.addElement("channel");
+	    Element title = channel.addElement("title");
+		channel.setText("国内最新新闻");
+		//设置生成xml的格式
+		OutputFormat format=OutputFormat.createPrettyPrint();
+		//默认为UTF-8
+		format.setEncoding("GBK");
 //		4,创建XML文档的输出流
 		File file=new File("rssnews.xml");
 		 try {
-         XMLWriter writer=new XMLWriter(new FileOutputStream(file));
+         XMLWriter writer=new XMLWriter(new FileOutputStream(file),format);
 //		5,将程序所写的XML文档内容与输出流联系起来
 			writer.write(document);
 //		6,关闭资源
