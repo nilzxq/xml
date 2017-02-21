@@ -1,5 +1,5 @@
 # xml
-http://www.imooc.com/video/3659
+
 # xml 解析
 http://www.imooc.com/video/3659
 
@@ -38,6 +38,9 @@ JDOM:69;DOM4J:45<br>
 DOM 有可能溢出<br>
 多使用DOM4J<br>
 <br><br>
+
+# xml 生成
+http://www.imooc.com/video/5895
 SAX基于事件，DOM基于树，JDOM&DOM4J基于底层API<br>
 如果要频繁修改选择DOM方式，否则选择SAX（速率较快）。<br>
     假设我现在要生成一个xml。让它去存储书籍信息。首先写根节点bookstore，然后添加第一本书，然后添加第二本书，<br>
