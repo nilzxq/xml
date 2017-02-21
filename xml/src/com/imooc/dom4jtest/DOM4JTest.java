@@ -1,6 +1,8 @@
 package com.imooc.dom4jtest;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -8,8 +10,10 @@ import java.util.List;
 import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
 
 import com.imooc.entity.Book;
 
@@ -20,10 +24,8 @@ import com.imooc.entity.Book;
  */
 public class DOM4JTest {
 	private static ArrayList<Book> booksList=new ArrayList<Book>();
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
+	
+	private void parseXML(){
 		// 解析books.xml文件
 		// 1、创建一个 SAXReader 对象
 		SAXReader reader = new SAXReader();
@@ -80,5 +82,33 @@ public class DOM4JTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	private void createXML(){
+//		1，创建Document对象，代表着整个XML文档
+		Document document = DocumentHelper.createDocument();
+//		2,创建根节点rss
+		Element rss = document.addElement("rss");
+//		3,向rss根节点中添加version属性
+		rss.addAttribute("version","2.0");
+//		4,创建XML文档的输出流
+		File file=new File("rssnews.xml");
+		 try {
+         XMLWriter writer=new XMLWriter(new FileOutputStream(file));
+//		5,将程序所写的XML文档内容与输出流联系起来
+			writer.write(document);
+//		6,关闭资源
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+	
+		new DOM4JTest().createXML();
 	}
 }
