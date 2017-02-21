@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 import org.jdom2.Attribute;
+import org.jdom2.CDATA;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -105,8 +107,16 @@ public class JDOMTest {
 //		1，创建一个根节点，并设置属性以及属性值
 		Element rss=new Element("rss");
 		rss.setAttribute("version","2.0");
+		
 //		2,创建Document对象，并将Element对象传入进去
 		Document document=new Document(rss);
+		Element channel=new Element("channel");
+		rss.addContent(channel);
+		Element title=new Element("title");
+		//使文本中特殊字符无法转义*******************************************************************划重点
+	//	title.addContent(new CDATA("<xml> 上海移动互联网产业促进中心正式揭牌"));
+		title.setContent(new CDATA("<国内最新新闻>"));
+		channel.addContent(title);
 //		(有了文档之后就考虑如何将文档与要生成的XML文件联系起来，每种解析方式都提供了相应的输出流，原理都是通过一个方法将输出流与Document对象联系起来)
 //		3，创建输出流对象
 	    XMLOutputter outputter=new	XMLOutputter();
